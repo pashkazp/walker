@@ -1,13 +1,91 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>depavlo</groupId>
-  <artifactId>walker</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>walker-repository</module>
-  	<module>walker-service</module>
-  	<module>walker-ui</module>
-  	<module>walker-web</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>depavlo</groupId>
+	<artifactId>walker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.7.RELEASE</version>
+		<relativePath />
+	</parent>
+	
+	<developers>
+		<developer>
+			<name>Pavlo Degtyaryev</name>
+			<email>pashka@ukr.net</email>
+		</developer>
+	</developers>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<java.source.version>11</java.source.version>
+		<java.target.version>11</java.target.version>
+		<org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+
+		<!-- automatically run annotation processors within the incremental compilation -->
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
+
+		<maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+
+		<surefire.failure.ignore>false</surefire.failure.ignore>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+    </dependencies>
+    
+	<build>
+ 		<finalName>walker</finalName>
+ 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>${surefire.failure.ignore}</testFailureIgnore>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.target.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>walker-repository</module>
+		<module>walker-service</module>
+		<module>walker-ui</module>
+		<module>walker-web</module>
+	</modules>
 </project>
