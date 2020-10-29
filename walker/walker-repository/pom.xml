@@ -8,4 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>walker-repository</artifactId>
+	<build>
+		<finalName>walker-repository</finalName>
+	</build>
 </project>

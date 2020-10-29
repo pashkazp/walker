@@ -87,5 +87,6 @@
 		<module>walker-service</module>
 		<module>walker-ui</module>
 		<module>walker-web</module>
+		<module>walker-util</module>
 	</modules>
 </project>

@@ -7,8 +7,8 @@
 		<artifactId>walker</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>walker-service</artifactId>
+	<artifactId>walker-util</artifactId>
 	<build>
-		<finalName>walker-service</finalName>
+		<finalName>walker-util</finalName>
 	</build>
 </project>
