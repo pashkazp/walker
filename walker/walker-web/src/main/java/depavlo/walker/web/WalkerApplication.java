@@ -1,4 +1,4 @@
-package depavlo.walker;
+package depavlo.walker.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
