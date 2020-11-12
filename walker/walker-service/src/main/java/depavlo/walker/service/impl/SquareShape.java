@@ -2,6 +2,7 @@ package depavlo.walker.service.impl;
 
 import depavlo.walker.service.IArea;
 import depavlo.walker.service.IShape;
+import depavlo.walker.service.exception.ShapeOutOfBoundsException;
 import depavlo.walker.util.Step;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,14 +28,14 @@ public class SquareShape implements IShape {
 
 	public void setHeight(int height) {
 		if (height < 1) {
-			throw new IndexOutOfBoundsException("Height of Shape must be more than 0.");
+			throw new ShapeOutOfBoundsException("Height of Shape must be more than 0.", null);
 		}
 		this.rowsCount = height;
 	}
 
 	public void setWidth(int width) {
 		if (width < 1) {
-			throw new IndexOutOfBoundsException("Width of Shape must be more than 0.");
+			throw new ShapeOutOfBoundsException("Width of Shape must be more than 0.", null);
 		}
 		this.colsCount = width;
 	}
@@ -42,10 +43,10 @@ public class SquareShape implements IShape {
 	@Override
 	public boolean canPut(IArea area, int row, int col) {
 		if (row < 0 || col < 0) {
-			throw new IndexOutOfBoundsException("Row or Col must be more than 0.");
+			throw new ShapeOutOfBoundsException("Row or Col must be more than 0.", null);
 		}
 		if (row + rowsCount > area.getRowsCount() || col + colsCount > area.getColsCount()) {
-			throw new IndexOutOfBoundsException("The Shape must be within the area.");
+			throw new ShapeOutOfBoundsException("The Shape must be within the area.", null);
 		}
 		for (int i = 0; i < rowsCount; i++) {
 			for (int j = 0; j < colsCount; j++) {
@@ -61,7 +62,7 @@ public class SquareShape implements IShape {
 	public boolean canMove(IArea area, int startRow, int startCol, Step step) {
 		if (startRow < 0 || startCol < 0 || startRow + rowsCount > area.getRowsCount()
 				|| startCol + colsCount > area.getColsCount()) {
-			throw new IndexOutOfBoundsException("The Shape must be within the area.");
+			throw new ShapeOutOfBoundsException("The Shape must be within the area.", null);
 		}
 		switch (step) {
 		case U:

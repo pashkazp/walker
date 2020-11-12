@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.collect.HashBasedTable;
@@ -29,28 +28,31 @@ import lombok.extern.slf4j.Slf4j;
 public class WalkWayFinder {
 
 	private final HeuristicDistance heuristicDistance;
+	private final ResultStorer storer;
 
 	private Walker walker;
 	private final Table<Integer, Integer, Node> tableWhite;
 	// private final Table<Integer, Integer, Node> tableBlack;
 
-	public WalkWayFinder(@Autowired HeuristicDistance heuristicDistance) {
+	public WalkWayFinder(HeuristicDistance heuristicDistance, ResultStorer storer) {
 		this.heuristicDistance = heuristicDistance;
+		this.storer = storer;
 		tableWhite = HashBasedTable.create();
 		// tableBlack = HashBasedTable.create();
 	}
 
 	public List<Node> findWay(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet) {
+		tableWhite.clear();
 		walker = new Walker(shape, stepSet.getSteps());
-		log.debug("Try find way on area: \n{}", cycleToString(area, start, finish, shape));
-		log.debug("Start point: {}", start);
-		log.debug("Finish point: {}", finish);
-		log.debug("Shape is: {}", shape);
-		log.debug("Steps set: {}", stepSet.name());
-
 		if (!walker.putIfCan(area, start)) {
 			return null;
 		}
+		log.info("\n========================================= NEW TASK ============================================");
+		log.info("Try find way on area: \n{}", cycleToString(area, start, finish, shape));
+		log.info("Start point: {}", start);
+		log.info("Finish point: {}", finish);
+		log.info("Shape is: {}", shape);
+		log.info("Steps set: {}", stepSet.name());
 
 		if (walker.arrived(finish)) {
 			return Collections.emptyList();
@@ -71,7 +73,7 @@ public class WalkWayFinder {
 			log.debug("Calculated Neighbors: \n{}", cycleToString(area, start, finish, shape));
 
 			Optional<Node> node = getSmaller();
-			log.debug("Smapper Neighbor: {}", node);
+			log.debug("Smaller Neighbor: {}", node);
 			if (node.isEmpty()) {
 				return null;
 			}
@@ -84,7 +86,7 @@ public class WalkWayFinder {
 		log.debug("Walker is stopped at Point: {}", walker.getPosition());
 		if (walker.arrived(finish)) {
 			List<Node> path = new LinkedList<>();
-			currentNode = tableWhite.get(finish.getRow(), finish.getCol());
+			currentNode = tableWhite.get(walker.getPositionRow(), walker.getPositionCol());
 			currentNode.setComeDirect(Step.F);
 			path.add(currentNode);
 			do {
@@ -93,8 +95,10 @@ public class WalkWayFinder {
 			} while (currentNode.getComeDirect() != Step.S);
 			Collections.reverse(path);
 			log.debug("Path: {}", path.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList()));
+			storer.storeResult(area, start, finish, shape, stepSet, path);
 			return path;
 		}
+
 		return null;
 	}
 
@@ -141,12 +145,12 @@ public class WalkWayFinder {
 		StringBuilder builder = new StringBuilder();
 		builder.append("   ");
 		for (int i = 0; i < area.getColsCount(); i++) {
-			builder.append(i).append(" ");
+			builder.append(StringUtils.rightPad(Integer.toString(i), 2, ' '));
 		}
-		builder.append("\n");
-		builder.append(StringUtils.repeat('+', area.getColsCount() * 2 + 4)).append("\n");
+		builder.append("\n   ");
+		builder.append(StringUtils.repeat('+', area.getColsCount() * 2)).append("\n");
 		for (int row = 0; row < area.getRowsCount(); row++) {
-			builder.append(row).append("[ ");
+			builder.append(StringUtils.leftPad(Integer.toString(row), 2, ' ')).append("[ ");
 			for (int col = 0; col < area.getColsCount(); col++) {
 				if (start.getCol() == col && start.getRow() == row) {
 					builder.append("S ");
@@ -156,7 +160,10 @@ public class WalkWayFinder {
 					builder.append("F ");
 					continue;
 				}
-				if (walker.getPositionCol() == col && walker.getPositionRow() == row) {
+				if (walker.getPositionCol() >= col
+						&& walker.getPositionCol() + walker.getShape().getWidth() < col
+						&& walker.getPositionRow() >= row
+						&& walker.getPositionRow() + walker.getShape().getHeight() < row) {
 					builder.append("* ");
 				} else if (tableWhite.contains(row, col)) {
 					builder.append("+ ");
@@ -165,8 +172,9 @@ public class WalkWayFinder {
 					builder.append(cell == Integer.MAX_VALUE ? "W " : ". ");
 				}
 			}
-			builder.append("]\n");
+			builder.deleteCharAt(builder.length() - 1).append("]\n");
 		}
+		builder.append("   ").append(StringUtils.repeat('+', area.getColsCount() * 2));
 		return builder.toString();
 	}
 }
