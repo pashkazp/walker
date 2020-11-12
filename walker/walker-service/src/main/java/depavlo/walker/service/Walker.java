@@ -9,48 +9,111 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The Class that represent Walker with given shape and set of steps.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
 public class Walker {
 
+	/** The shape. */
 	private final IShape shape;
 
+	/** The current position. */
 	private Point position = new Point(0, 0);
 
+	/** The enabled steps. */
 	private final Set<Step> steps;
 
+	/**
+	 * Instantiates a new walker.
+	 *
+	 * @param shape the shape
+	 * @param steps the steps
+	 */
 	public Walker(IShape shape, Set<Step> steps) {
 		this.shape = shape;
 		this.steps = steps;
 	}
 
+	/**
+	 * Instantiates a new walker.
+	 *
+	 * @param shape the shape
+	 * @param steps the steps
+	 * @param row   the row
+	 * @param col   the col
+	 */
 	public Walker(IShape shape, Set<Step> steps, int row, int col) {
 		this(shape, steps);
 		this.position.setRowCol(row, col);
 	}
 
+	/**
+	 * Instantiates a new walker.
+	 *
+	 * @param shape the shape
+	 * @param steps the steps
+	 * @param point the point
+	 */
 	public Walker(IShape shape, Set<Step> steps, Point point) {
 		this(shape, steps, point.getRow(), point.getCol());
 	}
 
+	/**
+	 * check if Can be put walker to the given point of the area.
+	 *
+	 * @param area the area
+	 * @param row  the row
+	 * @param col  the col
+	 * @return true, if successful
+	 */
 	public boolean canBePut(IArea area, int row, int col) {
 		return shape.canPut(area, row, col);
 	}
 
+	/**
+	 * check if Can be put walker to the given point of the area.
+	 *
+	 * @param area  the area
+	 * @param point the point
+	 * @return true, if successful
+	 */
 	public boolean canBePut(IArea area, Point point) {
 		return canBePut(area, point.getRow(), point.getCol());
 	}
 
+	/**
+	 * Put walker to the point.
+	 *
+	 * @param row the row
+	 * @param col the col
+	 */
 	private void put(int row, int col) {
 		position.setRowCol(row, col);
 	}
 
+	/**
+	 * Put the walker at the point
+	 *
+	 * @param point the point
+	 */
 	private void put(Point point) {
 		put(point.getRow(), point.getCol());
 	}
 
+	/**
+	 * Put the walker at the point if possible
+	 *
+	 * @param area the area
+	 * @param row  the row
+	 * @param col  the col
+	 * @return true, if successful
+	 */
 	public boolean putIfCan(IArea area, int row, int col) {
 		if (canBePut(area, row, col)) {
 			put(row, col);
@@ -59,14 +122,33 @@ public class Walker {
 		return false;
 	}
 
+	/**
+	 * Put the walker at the point if possible
+	 *
+	 * @param area  the area
+	 * @param point the point
+	 * @return true, if successful
+	 */
 	public boolean putIfCan(IArea area, Point point) {
 		return putIfCan(area, point.getRow(), point.getCol());
 	}
 
+	/**
+	 * check if Move the walker from the point to direction
+	 *
+	 * @param area the area
+	 * @param step the step
+	 * @return true, if successful
+	 */
 	public boolean canBeMove(IArea area, Step step) {
 		return steps.contains(step) && shape.canMove(area, position, step);
 	}
 
+	/**
+	 * Move the walker from the point to direction
+	 *
+	 * @param step the step
+	 */
 	private void Move(Step step) {
 		switch (step) {
 		case U:
@@ -98,6 +180,13 @@ public class Walker {
 		}
 	}
 
+	/**
+	 * Move the walker from the point to direction if possible
+	 *
+	 * @param area the area
+	 * @param step the step
+	 * @return true, if successful
+	 */
 	public boolean moveIfCan(IArea area, Step step) {
 		if (canBeMove(area, step)) {
 			Move(step);
@@ -106,14 +195,33 @@ public class Walker {
 		return false;
 	}
 
+	/**
+	 * check if shape covers the given point
+	 *
+	 * @param row the row
+	 * @param col the col
+	 * @return true, if successful
+	 */
 	public boolean arrived(int row, int col) {
 		return shape.coversPoint(position, row, col);
 	}
 
+	/**
+	 * check if shape covers the given point
+	 *
+	 * @param finish the finish
+	 * @return true, if successful
+	 */
 	public boolean arrived(Point finish) {
 		return arrived(finish.getRow(), finish.getCol());
 	}
 
+	/**
+	 * Gets the neighbor point.
+	 *
+	 * @param step the step
+	 * @return the neighbor point
+	 */
 	public Point getNeighborPoint(Step step) {
 		switch (step) {
 		case U:
@@ -137,10 +245,20 @@ public class Walker {
 		}
 	}
 
+	/**
+	 * Gets the position row.
+	 *
+	 * @return the position row
+	 */
 	public int getPositionRow() {
 		return position.getRow();
 	}
 
+	/**
+	 * Gets the position col.
+	 *
+	 * @return the position col
+	 */
 	public int getPositionCol() {
 		return position.getCol();
 	}

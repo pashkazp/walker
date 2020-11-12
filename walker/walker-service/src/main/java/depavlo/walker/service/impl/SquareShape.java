@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The Class that represent the Walker Square Shape .
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Getter
 @Setter
 @ToString
@@ -17,15 +22,28 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SquareShape implements IShape {
 
+	/** The rows count. */
 	private int rowsCount = 1;
 
+	/** The cols count. */
 	private int colsCount = 1;
 
+	/**
+	 * Instantiates a new square shape.
+	 *
+	 * @param height the height
+	 * @param width  the width
+	 */
 	public SquareShape(int height, int width) {
 		setHeight(height);
 		setWidth(width);
 	}
 
+	/**
+	 * Sets the height of shape.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		if (height < 1) {
 			throw new ShapeOutOfBoundsException("Height of Shape must be more than 0.", null);
@@ -33,6 +51,11 @@ public class SquareShape implements IShape {
 		this.rowsCount = height;
 	}
 
+	/**
+	 * Sets the width of shape.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width) {
 		if (width < 1) {
 			throw new ShapeOutOfBoundsException("Width of Shape must be more than 0.", null);
@@ -40,6 +63,14 @@ public class SquareShape implements IShape {
 		this.colsCount = width;
 	}
 
+	/**
+	 * Check if Can put shape on the Area position
+	 *
+	 * @param area the area
+	 * @param row  the row
+	 * @param col  the col
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean canPut(IArea area, int row, int col) {
 		if (row < 0 || col < 0) {
@@ -58,6 +89,15 @@ public class SquareShape implements IShape {
 		return true;
 	}
 
+	/**
+	 * Check if Can move shape from the given point to the direction.
+	 *
+	 * @param area     the area
+	 * @param startRow the start row
+	 * @param startCol the start col
+	 * @param step     the step
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean canMove(IArea area, int startRow, int startCol, Step step) {
 		if (startRow < 0 || startCol < 0 || startRow + rowsCount > area.getRowsCount()
@@ -182,6 +222,15 @@ public class SquareShape implements IShape {
 		}
 	}
 
+	/**
+	 * check if shape Covers given point.
+	 *
+	 * @param shapeStartRow the shape start row
+	 * @param shapeStartCol the shape start col
+	 * @param targetRow     the target row
+	 * @param targetCol     the target col
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean coversPoint(int shapeStartRow, int shapeStartCol, int targetRow, int targetCol) {
 		if (shapeStartRow > targetRow || (shapeStartRow + rowsCount) <= targetRow) {
@@ -193,11 +242,21 @@ public class SquareShape implements IShape {
 		return true;
 	}
 
+	/**
+	 * Gets the height of shape.
+	 *
+	 * @return the height
+	 */
 	@Override
 	public int getHeight() {
 		return rowsCount;
 	}
 
+	/**
+	 * Gets the width of shape.
+	 *
+	 * @return the width
+	 */
 	@Override
 	public int getWidth() {
 		return colsCount;

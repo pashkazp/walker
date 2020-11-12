@@ -21,27 +21,69 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The Class WalkWayFinder.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Component
 @ToString
 @EqualsAndHashCode
 @Slf4j
 public class WalkWayFinder {
 
+	/** The heuristic distance. */
 	private final HeuristicDistance heuristicDistance;
+
+	/** The Result storer. */
 	private final ResultStorer storer;
 
+	/** The walker. */
 	private Walker walker;
-	private final Table<Integer, Integer, Node> tableWhite;
-	// private final Table<Integer, Integer, Node> tableBlack;
 
+	/** The table white. */
+	private final Table<Integer, Integer, Node> tableWhite;
+
+	/**
+	 * Instantiates a new walk way finder.
+	 *
+	 * @param heuristicDistance the heuristic distance
+	 * @param storer            the storer
+	 */
 	public WalkWayFinder(HeuristicDistance heuristicDistance, ResultStorer storer) {
 		this.heuristicDistance = heuristicDistance;
 		this.storer = storer;
 		tableWhite = HashBasedTable.create();
-		// tableBlack = HashBasedTable.create();
 	}
 
+	/**
+	 * Check find way parameters.
+	 *
+	 * @param area   the area
+	 * @param start  the start
+	 * @param finish the finish
+	 * @param shape  the shape
+	 * @return true, if successful
+	 */
+	public boolean checkFindWayParameters(IArea area, Point start, Point finish, IShape shape) {
+		// TODO Make appropriate verifications
+		return true;
+	}
+
+	/**
+	 * Find way.
+	 *
+	 * @param area    the area
+	 * @param start   the start
+	 * @param finish  the finish
+	 * @param shape   the shape
+	 * @param stepSet the step set
+	 * @return the list
+	 */
 	public List<Node> findWay(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet) {
+		if (!checkFindWayParameters(area, start, finish, shape)) {
+			throw new IllegalArgumentException("Some parameters has wrong data");
+		}
 		tableWhite.clear();
 		walker = new Walker(shape, stepSet.getSteps());
 		if (!walker.putIfCan(area, start)) {
@@ -102,6 +144,11 @@ public class WalkWayFinder {
 		return null;
 	}
 
+	/**
+	 * Gets the smaller unprocessed Node.
+	 *
+	 * @return the smaller
+	 */
 	private Optional<Node> getSmaller() {
 		Collection<Node> nodes = tableWhite.values();
 
@@ -111,6 +158,14 @@ public class WalkWayFinder {
 		return minNode;
 	}
 
+	/**
+	 * Calculate walker neighbors nodes.
+	 *
+	 * @param area        the area
+	 * @param currentNode the current node
+	 * @param walker      the walker
+	 * @param finish      the finish
+	 */
 	private void calculateWalkerNeighbors(IArea area, Node currentNode, Walker walker, Point finish) {
 		for (Step step : walker.getSteps()) {
 			if (walker.canBeMove(area, step)) {
@@ -141,6 +196,15 @@ public class WalkWayFinder {
 		currentNode.setProcessed(true);
 	}
 
+	/**
+	 * Convert current state to string
+	 *
+	 * @param area   the area
+	 * @param start  the start
+	 * @param finish the finish
+	 * @param shape  the shape
+	 * @return the string
+	 */
 	private String cycleToString(IArea area, Point start, Point finish, IShape shape) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("   ");

@@ -14,10 +14,27 @@ import depavlo.walker.util.Point;
 import depavlo.walker.util.StepSetType;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Implementation of result save service Interface. Simple service that store
+ * task and result of searching
+ * 
+ * @author Pavlo Degtyaryev
+ * 
+ */
 @Slf4j
 @Service
 public class ResultStorerImpl implements ResultStorer {
 
+	/**
+	 * Store task and result.
+	 *
+	 * @param area    the work area
+	 * @param start   the start Point
+	 * @param finish  the finish Point
+	 * @param shape   the Walker shape of Walker
+	 * @param stepSet the Walker step set
+	 * @param path    the founded path
+	 */
 	@Override
 	public void storeResult(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet, List<Node> path) {
 		log.info("\n========================================== RESULT =============================================");
@@ -36,6 +53,17 @@ public class ResultStorerImpl implements ResultStorer {
 
 	}
 
+	/**
+	 * Make Picture of result Area
+	 *
+	 * @param area    the working area
+	 * @param start   the start Point
+	 * @param finish  the finish Point
+	 * @param shape   the walker shape
+	 * @param stepSet the walker step set
+	 * @param path    the founded path
+	 * @return the string
+	 */
 	private String convertAreaToString(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet,
 			List<Node> path) {
 		StringBuilder builder = new StringBuilder();

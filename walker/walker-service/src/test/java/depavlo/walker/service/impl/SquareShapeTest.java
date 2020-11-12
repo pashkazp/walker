@@ -16,7 +16,7 @@ import depavlo.walker.util.Step;
 class SquareShapeTest {
 
 	@Test
-	@DisplayName("Test IndexOutOfBoundsException on constructor, setHeight and setWidth")
+	@DisplayName("Test ShapeOutOfBoundsException on constructor, setHeight and setWidth")
 	void test1() {
 		SquareShape shape = new SquareShape();
 		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(0, 0));
