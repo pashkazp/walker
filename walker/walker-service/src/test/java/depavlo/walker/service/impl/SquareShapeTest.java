@@ -9,24 +9,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import depavlo.walker.service.exception.ShapeOutOfBoundsException;
 import depavlo.walker.util.Point;
 import depavlo.walker.util.Step;
 
 class SquareShapeTest {
 
 	@Test
-	@DisplayName("Test IndexOutOfBoundsException on constructor, setHeight and setWidth")
+	@DisplayName("Test ShapeOutOfBoundsException on constructor, setHeight and setWidth")
 	void test1() {
 		SquareShape shape = new SquareShape();
-		assertThrows(IndexOutOfBoundsException.class, () -> new SquareShape(0, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> new SquareShape(1, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> new SquareShape(0, 1));
-		assertThrows(IndexOutOfBoundsException.class, () -> new SquareShape(1, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> new SquareShape(-1, 1));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape.setHeight(0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape.setHeight(-1));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape.setWidth(0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape.setWidth(-1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(0, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(1, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(0, 1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(1, -1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> new SquareShape(-1, 1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape.setHeight(0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape.setHeight(-1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape.setWidth(0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape.setWidth(-1));
 		assertDoesNotThrow(() -> new SquareShape(1, 1));
 		assertDoesNotThrow(() -> new SquareShape(10, 10));
 		assertDoesNotThrow(() -> new SquareShape(10, 10));
@@ -144,25 +145,25 @@ class SquareShapeTest {
 		assertTrue(shape11.canPut(area, 9, 9));
 		assertTrue(shape11.canPut(area, 9, 0));
 		assertTrue(shape11.canPut(area, 9, 9));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, -1, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, 0, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, -1, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, 0, 10));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, 10, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canPut(area, 10, 10));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, -1, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, 0, -1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, -1, -1));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, 0, 10));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, 10, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canPut(area, 10, 10));
 
 		assertTrue(shape22.canPut(area, 0, 0));
 		assertTrue(shape22.canPut(area, 0, 8));
 		assertTrue(shape22.canPut(area, 8, 0));
 		assertFalse(shape22.canPut(area, 8, 8));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape22.canPut(area, 0, 9));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape22.canPut(area, 9, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape22.canPut(area, 9, 9));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape22.canPut(area, 0, 9));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape22.canPut(area, 9, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape22.canPut(area, 9, 9));
 
 		assertTrue(shape51.canPut(area, 0, 0));
 		assertFalse(shape51.canPut(area, 1, 0));
 		assertFalse(shape51.canPut(area, 5, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape51.canPut(area, 6, 0));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape51.canPut(area, 6, 0));
 	}
 
 	@Test
@@ -175,12 +176,12 @@ class SquareShapeTest {
 		SquareShape shape22 = new SquareShape(2, 2);
 		SquareShape shape51 = new SquareShape(5, 1);
 
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canMove(area, -1, 0, Step.D));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canMove(area, -1, -1, Step.D));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canMove(area, -5, 2, Step.D));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canMove(area, 0, 10, Step.D));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape11.canMove(area, 10, 3, Step.D));
-		assertThrows(IndexOutOfBoundsException.class, () -> shape51.canMove(area, 6, 2, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canMove(area, -1, 0, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canMove(area, -1, -1, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canMove(area, -5, 2, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canMove(area, 0, 10, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape11.canMove(area, 10, 3, Step.D));
+		assertThrows(ShapeOutOfBoundsException.class, () -> shape51.canMove(area, 6, 2, Step.D));
 
 		assertFalse(shape11.canMove(area, 0, 0, Step.U));
 		assertFalse(shape11.canMove(area, 0, 0, Step.UL));

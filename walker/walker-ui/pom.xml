@@ -10,5 +10,41 @@
 	<artifactId>walker-ui</artifactId>
 	<build>
 		<finalName>walker-ui</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version> <!-- or newer version -->
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.target.version}</target>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<!-- other annotation processors -->
+						</annotationProcessorPaths>
+						<!-- <compilerArgs> <compilerArg> -Amapstruct.defaultComponentModel=spring 
+							</compilerArg> </compilerArgs> -->
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.plugin.version}</version>
+					<configuration>
+						<testFailureIgnore>${surefire.failure.ignore}</testFailureIgnore>
+					</configuration>
+					<!-- <dependencies> <dependency> <groupId>org.junit.platform</groupId> 
+						<artifactId>junit-platform-surefire-provider</artifactId> </dependency> </dependencies> -->
+				</plugin>
+				<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+					<configuration> <archive> <addMavenDescriptor>true</addMavenDescriptor> </archive> 
+					</configuration> </plugin> -->
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

@@ -1,2 +1,2 @@
 # walker
-Implementation of the algorithm for moving an object along a rectangular field that contains obstacles.
+Implementation of the A* algorithm for moving an object along a rectangular area that contains obstacles.

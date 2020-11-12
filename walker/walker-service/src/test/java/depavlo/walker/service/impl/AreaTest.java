@@ -12,20 +12,20 @@ import depavlo.walker.util.Point;
 class AreaTest {
 
 	@Test
-	@DisplayName("Test IndexOutOfBoundsException")
+	@DisplayName("Test IllegalArgumentException")
 	void test1() {
 		Area area = new Area(2, 2);
 
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(0, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(2, 0));
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(2, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(0, 2));
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(-1, 2));
-		assertThrows(IndexOutOfBoundsException.class, () -> new Area(-1, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> area.setRowsCount(0));
-		assertThrows(IndexOutOfBoundsException.class, () -> area.setRowsCount(-1));
-		assertThrows(IndexOutOfBoundsException.class, () -> area.setColsCount(0));
-		assertThrows(IndexOutOfBoundsException.class, () -> area.setColsCount(-1));
+		assertThrows(IllegalArgumentException.class, () -> new Area(0, 0));
+		assertThrows(IllegalArgumentException.class, () -> new Area(2, 0));
+		assertThrows(IllegalArgumentException.class, () -> new Area(2, -1));
+		assertThrows(IllegalArgumentException.class, () -> new Area(0, 2));
+		assertThrows(IllegalArgumentException.class, () -> new Area(-1, 2));
+		assertThrows(IllegalArgumentException.class, () -> new Area(-1, -1));
+		assertThrows(IllegalArgumentException.class, () -> area.setRowsCount(0));
+		assertThrows(IllegalArgumentException.class, () -> area.setRowsCount(-1));
+		assertThrows(IllegalArgumentException.class, () -> area.setColsCount(0));
+		assertThrows(IllegalArgumentException.class, () -> area.setColsCount(-1));
 		assertDoesNotThrow(() -> new Area(1, 1));
 		assertDoesNotThrow(() -> new Area(1, 100));
 		assertDoesNotThrow(() -> area.setRowsCount(1));
