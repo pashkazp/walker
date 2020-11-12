@@ -153,7 +153,7 @@ public class WalkWayFinder {
 		Collection<Node> nodes = tableWhite.values();
 
 		Optional<Node> minNode = nodes.stream().filter((n) -> !n.isProcessed())
-				.min(Comparator.comparingInt(Node::getWeight));
+				.min(Comparator.comparing(Node::getWeight).thenComparing(Node::getEdistance));
 
 		return minNode;
 	}
