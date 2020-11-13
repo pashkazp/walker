@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+*.tmp
 app.log.*.gz
 
 # Tern plugin
@@ -43,3 +44,4 @@ hs_err_pid*
 /bin/
 /target/
 .attach_pid*
+/walker/*/target/*
