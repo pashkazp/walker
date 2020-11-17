@@ -10,11 +10,6 @@
 	<artifactId>walker-service</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>depavlo</groupId>
-			<artifactId>walker-depavlo.walker.util</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
@@ -22,6 +17,11 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>depavlo</groupId>
+			<artifactId>walker-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- exclude junit 4 -->

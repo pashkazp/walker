@@ -14,9 +14,12 @@ import org.springframework.stereotype.Component;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import depavlo.walker.service.audit.IWalkWayFinderFindParamsAuditor;
+import depavlo.walker.service.exception.WalkWayFinderTaskParamAuditException;
+import depavlo.walker.service.model.WalkWayFinderTask;
 import depavlo.walker.util.Point;
 import depavlo.walker.util.Step;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.audit.AuditResponse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -44,30 +47,20 @@ public class WalkWayFinder {
 	/** The table white. */
 	private final Table<Integer, Integer, Node> tableWhite;
 
+	private final IWalkWayFinderFindParamsAuditor paramAuditor;
+
 	/**
 	 * Instantiates a new walk way finder.
 	 *
 	 * @param heuristicDistance the heuristic distance
 	 * @param storer            the storer
 	 */
-	public WalkWayFinder(HeuristicDistance heuristicDistance, ResultStorer storer) {
+	public WalkWayFinder(HeuristicDistance heuristicDistance, ResultStorer storer,
+			IWalkWayFinderFindParamsAuditor paramAuditor) {
 		this.heuristicDistance = heuristicDistance;
 		this.storer = storer;
+		this.paramAuditor = paramAuditor;
 		tableWhite = HashBasedTable.create();
-	}
-
-	/**
-	 * Check find way parameters.
-	 *
-	 * @param area   the area
-	 * @param start  the start
-	 * @param finish the finish
-	 * @param shape  the shape
-	 * @return true, if successful
-	 */
-	public boolean checkFindWayParameters(IArea area, Point start, Point finish, IShape shape) {
-		// TODO Make appropriate verifications
-		return true;
 	}
 
 	/**
@@ -80,39 +73,46 @@ public class WalkWayFinder {
 	 * @param stepSet the step set
 	 * @return the list
 	 */
-	public List<Node> findWay(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet) {
-		if (!checkFindWayParameters(area, start, finish, shape)) {
-			throw new IllegalArgumentException("Some parameters has wrong data");
+	public List<Node> findWay(WalkWayFinderTask task) {
+		AuditResponse response = paramAuditor.validate(task, null);
+		if (response.isInvalid()) {
+			log.warn("The path search task settings are incorrect: {}", task);
+			WalkWayFinderTaskParamAuditException ex = new WalkWayFinderTaskParamAuditException(response);
+			ex.setErrMsg("Param is wrong.");
+			ex.setErrMsgExt("The path search task settings are incorrect.");
+			throw ex;
 		}
 		tableWhite.clear();
-		walker = new Walker(shape, stepSet.getSteps());
-		if (!walker.putIfCan(area, start)) {
+		walker = new Walker(task.getShape(), task.getStepSet().getSteps());
+		if (!walker.putIfCan(task.getArea(), task.getStart())) {
 			return null;
 		}
 		log.info("\n========================================= NEW TASK ============================================");
-		log.info("Try find way on area: \n{}", cycleToString(area, start, finish, shape));
-		log.info("Start point: {}", start);
-		log.info("Finish point: {}", finish);
-		log.info("Shape is: {}", shape);
-		log.info("Steps set: {}", stepSet.name());
+		log.info("Try find way on area: \n{}",
+				cycleToString(task.getArea(), task.getStart(), task.getFinish(), task.getShape()));
+		log.info("Start point: {}", task.getStart());
+		log.info("Finish point: {}", task.getFinish());
+		log.info("Shape is: {}", task.getShape());
+		log.info("Steps set: {}", task.getStepSet().name());
 
-		if (walker.arrived(finish)) {
+		if (walker.arrived(task.getFinish())) {
 			return Collections.emptyList();
 		}
 
 		Node currentNode = new Node.NodeBuilder()
 				.comeDirect(Step.S)
-				.point(start)
+				.point(task.getStart())
 				.distance(0)
-				.edistance(heuristicDistance.getDistance(area, start, finish))
+				.edistance(heuristicDistance.getDistance(task.getArea(), task.getStart(), task.getFinish()))
 				.build();
 
-		tableWhite.put(start.getRow(), start.getCol(), currentNode);
-		int maxIterations = area.getRowsCount() * area.getColsCount();
-		while (maxIterations > 0 && !walker.arrived(finish) && !tableWhite.isEmpty()) {
+		tableWhite.put(task.getStart().getRow(), task.getStart().getCol(), currentNode);
+		int maxIterations = task.getArea().getRowsCount() * task.getArea().getColsCount();
+		while (maxIterations > 0 && !walker.arrived(task.getFinish()) && !tableWhite.isEmpty()) {
 
-			calculateWalkerNeighbors(area, currentNode, walker, finish);
-			log.debug("Calculated Neighbors: \n{}", cycleToString(area, start, finish, shape));
+			calculateWalkerNeighbors(task.getArea(), currentNode, walker, task.getFinish());
+			log.debug("Calculated Neighbors: \n{}",
+					cycleToString(task.getArea(), task.getStart(), task.getFinish(), task.getShape()));
 
 			Optional<Node> node = getSmaller();
 			log.debug("Smaller Neighbor: {}", node);
@@ -120,13 +120,13 @@ public class WalkWayFinder {
 				return null;
 			}
 			currentNode = node.get();
-			if (!walker.putIfCan(area, currentNode.getPoint())) {
+			if (!walker.putIfCan(task.getArea(), currentNode.getPoint())) {
 				return null;
 			}
 			maxIterations--;
 		}
 		log.debug("Walker is stopped at Point: {}", walker.getPosition());
-		if (walker.arrived(finish)) {
+		if (walker.arrived(task.getFinish())) {
 			List<Node> path = new LinkedList<>();
 			currentNode = tableWhite.get(walker.getPositionRow(), walker.getPositionCol());
 			currentNode.setComeDirect(Step.F);
@@ -137,7 +137,8 @@ public class WalkWayFinder {
 			} while (currentNode.getComeDirect() != Step.S);
 			Collections.reverse(path);
 			log.debug("Path: {}", path.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList()));
-			storer.storeResult(area, start, finish, shape, stepSet, path);
+			storer.storeResult(task.getArea(), task.getStart(), task.getFinish(), task.getShape(), task.getStepSet(),
+					path);
 			return path;
 		}
 
