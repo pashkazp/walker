@@ -137,8 +137,7 @@ public class WalkWayFinder {
 			} while (currentNode.getComeDirect() != Step.S);
 			Collections.reverse(path);
 			log.debug("Path: {}", path.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList()));
-			storer.storeResult(task.getArea(), task.getStart(), task.getFinish(), task.getShape(), task.getStepSet(),
-					path);
+			storer.storeResult(task, path);
 			return path;
 		}
 

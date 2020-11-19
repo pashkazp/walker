@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import depavlo.walker.util.Point;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.service.model.WalkWayFinderTask;
 
 /**
  * The Interface ResultStorer.
@@ -25,6 +24,5 @@ public interface ResultStorer {
 	 * @param stepSet the walker step set
 	 * @param path    the path that was found
 	 */
-	void storeResult(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet,
-			List<Node> path);
+	void storeResult(WalkWayFinderTask task, List<Node> path);
 }

@@ -10,8 +10,8 @@ import depavlo.walker.service.IArea;
 import depavlo.walker.service.IShape;
 import depavlo.walker.service.Node;
 import depavlo.walker.service.ResultStorer;
+import depavlo.walker.service.model.WalkWayFinderTask;
 import depavlo.walker.util.Point;
-import depavlo.walker.util.StepSetType;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,19 +36,22 @@ public class ResultStorerImpl implements ResultStorer {
 	 * @param path    the founded path
 	 */
 	@Override
-	public void storeResult(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet, List<Node> path) {
+	public void storeResult(WalkWayFinderTask task, List<Node> path) {
+		if (task == null) {
+			throw new IllegalArgumentException("Task must be not null.");
+		}
 		log.info("\n========================================== RESULT =============================================");
-		log.info("Start Point: {}", start);
-		log.info("Finish Point: {}", finish);
-		log.info("Walker Shape height:width is: {}:{}", shape.getHeight(), shape.getWidth());
-		log.info("Walker Step Set: {}", stepSet.name());
+		log.info("Start Point: {}", task.getStart());
+		log.info("Finish Point: {}", task.getFinish());
+		log.info("Walker Shape height:width is: {}:{}", task.getShape().getHeight(), task.getShape().getWidth());
+		log.info("Walker Step Set: {}", task.getStepSet().name());
 		if (path == null) {
 			log.info("Found way length: nothing");
 		} else {
 			log.info("Found way length: {}", path.size());
 			log.info("Way: {}", Arrays.deepToString(path.toArray()));
 		}
-		log.info("Area with path: \n{}", convertAreaToString(area, start, finish, shape, stepSet, path));
+		log.info("Area with path: \n{}", convertAreaToString(task, path));
 		log.info("\n======================================== END RESULT ===========================================");
 
 	}
@@ -64,10 +67,13 @@ public class ResultStorerImpl implements ResultStorer {
 	 * @param path    the founded path
 	 * @return the string
 	 */
-	private String convertAreaToString(IArea area, Point start, Point finish, IShape shape, StepSetType stepSet,
-			List<Node> path) {
+	private String convertAreaToString(WalkWayFinderTask task, List<Node> path) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("   ");
+		IArea area = task.getArea();
+		Point start = task.getStart();
+		Point finish = task.getFinish();
+		IShape shape = task.getShape();
 		for (int i = 0; i < area.getColsCount(); i++) {
 			builder.append(StringUtils.rightPad(Integer.toString(i), 2, ' '));
 		}
