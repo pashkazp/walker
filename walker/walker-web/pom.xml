@@ -28,6 +28,12 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
 		<!-- exclude junit 4 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
