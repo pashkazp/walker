@@ -19,7 +19,7 @@ public class MainController {
 	 */
 	@GetMapping()
 	public String getHomePage(Model model) {
-		return "home/index";
+		return "home/main-page";
 	}
 
 }
