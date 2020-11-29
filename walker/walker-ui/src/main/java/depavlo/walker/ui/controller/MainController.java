@@ -22,4 +22,24 @@ public class MainController {
 		return "home/main-page";
 	}
 
+	/**
+	 * Return the Home Page template
+	 *
+	 * @return the string
+	 */
+	@GetMapping("/about")
+	public String getAboutPage(Model model) {
+		return "home/about-page";
+	}
+
+	/**
+	 * Return the Home Page template
+	 *
+	 * @return the string
+	 */
+	@GetMapping("/faq")
+	public String getFaqPage(Model model) {
+		return "home/faq-page";
+	}
+
 }
