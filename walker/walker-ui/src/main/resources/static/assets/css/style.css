@@ -1285,13 +1285,26 @@ rotate(
 	border-color: #5777ba;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active, 
+.open>.dropdown-toggle.btn-primary {
 	color: #7b94c9;
-	text-decoration: none;
+	border-color:#7b94c9;
 }
 
 [class*=gamecell][data-value='w']{
   background-color: black;
+}
+[class*=gamecell][data-value='s']{
+  background-color: green;
+}
+[class*=gamecell][data-value='f']{
+  background-color: red;
+}
+[class*=gamecell][data-value='p']{
+  background-color: blue;
 }
 
 .grid-gamecontainer {

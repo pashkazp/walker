@@ -44,8 +44,6 @@
 				<h1 class="text-light">
 					<a href="/">A* algorithm</a>
 				</h1>
-				<!-- Uncomment below if you prefer to use an image logo -->
-				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 			</div>
 
 			<nav class="nav-menu d-none d-lg-block">
@@ -53,9 +51,7 @@
 					<li class="active"><a href="/">Home</a></li>
 					<li><a href="/faq">F.A.Q</a></li>
 					<li><a href="/about">About</a></li>
-
-<!-- 					<li class="get-started"><a href="#features">Get Started</a></li>
- -->				</ul>
+				</ul>
 			</nav>
 			<!-- .nav-menu -->
 
@@ -76,19 +72,20 @@
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
 										class="form-check-input" name="optradio" value="wall"
-										checked="checked">set/clear "Wall"
+										onclick="setCellType('w')" checked="checked">set/clear
+										"Wall"
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="start">set/clear
-										"Start"
+										class="form-check-input" name="optradio" value="start"
+										onclick="setCellType('s')">set/clear "Start"
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="finish">set/clear
-										"Finish"
+										class="form-check-input" name="optradio" value="finish"
+										onclick="setCellType('f')">set/clear "Finish"
 									</label>
 								</div>
 							</div>
@@ -153,7 +150,8 @@
 						</div>
 						<div class="btn-toolbar">
 							<button type="button" class="btn btn-primary rounded-pill">Execute</button>
-							<button type="button" class="btn btn-primary rounded-pill">Clear</button>
+							<button type="button" class="btn btn-primary rounded-pill"
+								onclick="clearCells()">Clear</button>
 						</div>
 					</div>
 				</div>
@@ -161,14 +159,8 @@
 			<div class="container">
 				<div class="grid-gamecontainer overflow-auto">
 					<div th:each="number: ${#numbers.sequence(1,10000)}"
-						class="gamecell border border-dark rounded-sm square"
-						data-value=" "></div>
-					<!-- 					<div th:each="number: ${#numbers.sequence(1,10000)}"
-						class="gamecell border border-dark rounded-sm square"
-						data-value=" "
-						th:onclick="|javascript:testId(e,this,'${number}')|"
-						th:onmouseover="|javascript:testId(e,this,'${number}')|"></div>
- -->
+						class="gamecell border border-dark square" data-value=" "
+						th:data-number=${number}></div>
 				</div>
 			</div>
 		</section>
@@ -202,21 +194,53 @@
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
 
-	<script>
-		function testId(e, ch, id) {
-			/* 			if (e.buttons == 1) {
-			 ch.dataset.value = "w";
-			 }
-			 *//* alert("Parameter: '" + ch.dataset.value + "'," + id) */
-		}
+	<script type="text/javascript">
+		var cellType = "w";
+		var startPoint = 0;
+		var finishPoint = 0;
+		var divStart;
+		var divFinish;
+		function setCellType(ch) {
+			cellType = ch;
+		};
 	</script>
 	<script type="text/javascript">
 		$(".gamecell").on("mousedown mouseenter", function(e) {
 			if (e.buttons == 1 || e.buttons == 3) {
-				this.dataset.value = "w";
+				this.dataset.value = cellType;
+				switch (cellType) {
+				case 'w':
+					break;
+				case 's':
+					if (startPoint != 0) {
+						divStart.setAttribute("data-value", " ");
+					}
+					divStart = this;
+					startPoint = this.dataset.number;
+					break;
+				case 'f':
+					if (finishPoint != 0) {
+						divFinish.setAttribute("data-value", " ");
+					}
+					divFinish = this;
+					finishPoint = this.dataset.number;
+					break;
+				default:
+					break;
+				}
 			}
 		}).on("mouseup mouseout", function(e) {
 		});
+	</script>
+	<script type="text/javascript">
+	function clearCells(){
+		 startPoint = 0;
+		 finishPoint = 0;
+		 var gameCells = document.getElementsByClassName("gamecell");
+		 Array.from(gameCells).forEach((gameCell) => {
+			 gameCell.setAttribute("data-value", " ");
+			});
+		 };
 	</script>
 </body>
 
