@@ -1295,13 +1295,25 @@ rotate(
 }
 
 [class*=gamecell][data-value='w']{
-  background-color: black;
+  background-color: #000000;
 }
 [class*=gamecell][data-value='s']{
-  background-color: green;
+  background-color: #00ff00;
+}
+[class*=gamecell][data-value='ws']{
+  background-color: #008000;
 }
 [class*=gamecell][data-value='f']{
-  background-color: red;
+  background-color: #FF0000;
+}
+[class*=gamecell][data-value='wf']{
+  background-color: #6e0000;
+}
+[class*=gamecell][data-value='wsf']{
+  background-color: #402000;
+}
+[class*=gamecell][data-value='sf']{
+  background-color: #945100;
 }
 [class*=gamecell][data-value='p']{
   background-color: blue;

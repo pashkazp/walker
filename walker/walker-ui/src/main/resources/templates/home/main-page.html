@@ -18,6 +18,9 @@
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
 
+<script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+
 <!-- Vendor CSS Files -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -31,7 +34,6 @@
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -71,20 +73,26 @@
 								<h3>Cell type</h3>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="wall"
-										onclick="setCellType('w')" checked="checked">set/clear
+										class="form-check-input" name="optradiocell" value="wall"
+										onclick="setCellType('w')" checked="checked">set
 										"Wall"
 									</label>
 								</div>
 								<div class="form-check">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="optradiocell" value="space"
+											onclick="setCellType(' ')">clear "Wall"
+										</label>
+								</div>
+								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="start"
+										class="form-check-input" name="optradiocell" value="start"
 										onclick="setCellType('s')">set/clear "Start"
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="finish"
+										class="form-check-input" name="optradiocell" value="finish"
 										onclick="setCellType('f')">set/clear "Finish"
 									</label>
 								</div>
@@ -97,20 +105,21 @@
 								<h3>Shape</h3>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="square1"
-										checked="checked">1 square
-									</label>
-								</div>
-								<div class="form-check">
-									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="square2">2
+										class="form-check-input" name="optradioshape" value="square1"
+										onclick="sendShape('square1')" checked="checked">1
 										square
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="square3">3
-										square
+										class="form-check-input" name="optradioshape" value="square2"
+										onclick="sendShape('square2')">2 square
+									</label>
+								</div>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="radio"
+										class="form-check-input" name="optradioshape" value="square3"
+										onclick="sendShape('square3')">3 square
 									</label>
 								</div>
 							</div>
@@ -122,18 +131,20 @@
 								<h3>Stepset</h3>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="ortho"
-										checked="checked">Orthogonal
+										class="form-check-input" name="optradiostep" value="ortho"
+										onclick="sendStepType('ortho')" checked="checked">Orthogonal
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="octa">Octagon
+										class="form-check-input" name="optradiostep" value="octa"
+										onclick="sendStepType('octa')">Octagon
 									</label>
 								</div>
 								<div class="form-check">
 									<label class="form-check-label"> <input type="radio"
-										class="form-check-input" name="optradio" value="chess">Chess
+										class="form-check-input" name="optradiostep" value="chess"
+										onclick="sendStepType('chess')">Chess
 									</label>
 								</div>
 							</div>
@@ -149,16 +160,17 @@
 							</div>
 						</div>
 						<div class="btn-toolbar">
-							<button type="button" class="btn btn-primary rounded-pill">Execute</button>
 							<button type="button" class="btn btn-primary rounded-pill"
-								onclick="clearCells()">Clear</button>
+								onclick="sendMessage()">Execute</button>
+							<button type="button" class="btn btn-primary rounded-pill"
+								onclick="sendClear()">Clear</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container">
 				<div class="grid-gamecontainer overflow-auto">
-					<div th:each="number: ${#numbers.sequence(1,10000)}"
+					<div th:each="number: ${#numbers.sequence(0,9999)}"
 						class="gamecell border border-dark square" data-value=" "
 						th:data-number=${number}></div>
 				</div>
@@ -194,54 +206,7 @@
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
 
-	<script type="text/javascript">
-		var cellType = "w";
-		var startPoint = 0;
-		var finishPoint = 0;
-		var divStart;
-		var divFinish;
-		function setCellType(ch) {
-			cellType = ch;
-		};
-	</script>
-	<script type="text/javascript">
-		$(".gamecell").on("mousedown mouseenter", function(e) {
-			if (e.buttons == 1 || e.buttons == 3) {
-				this.dataset.value = cellType;
-				switch (cellType) {
-				case 'w':
-					break;
-				case 's':
-					if (startPoint != 0) {
-						divStart.setAttribute("data-value", " ");
-					}
-					divStart = this;
-					startPoint = this.dataset.number;
-					break;
-				case 'f':
-					if (finishPoint != 0) {
-						divFinish.setAttribute("data-value", " ");
-					}
-					divFinish = this;
-					finishPoint = this.dataset.number;
-					break;
-				default:
-					break;
-				}
-			}
-		}).on("mouseup mouseout", function(e) {
-		});
-	</script>
-	<script type="text/javascript">
-	function clearCells(){
-		 startPoint = 0;
-		 finishPoint = 0;
-		 var gameCells = document.getElementsByClassName("gamecell");
-		 Array.from(gameCells).forEach((gameCell) => {
-			 gameCell.setAttribute("data-value", " ");
-			});
-		 };
-	</script>
+	<script src="assets/main-page.js"></script>
 </body>
 
 
