@@ -68,16 +68,16 @@ public enum CellFiller {
 		this.bitmask = mask;
 	}
 
-	public static CellFiller get(String text) {
+	public static CellFiller getCellFiller(String text) {
 		return lookup.get(text);
 	}
 
 	public static int getMask(String text) {
-		return lookup.get(text).bitmask;
+		return lookup.getOrDefault(text, SP).bitmask;
 	}
 
 	public static int getVeigh(String text) {
-		return lookup.get(text).veight;
+		return lookup.getOrDefault(text, SP).veight;
 	}
 
 }
