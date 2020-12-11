@@ -67,9 +67,9 @@ function clearall(response) {
 	})
 }
 
-function setCell(depavlo.walker.ui.payload) {
-//	console.log('setcell: ' + depavlo.walker.ui.payload);
-	var message = JSON.parse(depavlo.walker.ui.payload.body);
+function setCell(payload) {
+//	console.log('setcell: ' + payload);
+	var message = JSON.parse(payload.body);
 	$('.gamecell[data-number=' + message.cellNum + ']').attr('data-value', message.cellValue);
 }
 
