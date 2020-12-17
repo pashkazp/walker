@@ -39,7 +39,7 @@ public class WalkWayFinder {
 	private final HeuristicDistance heuristicDistance;
 
 	/** The Result storer. */
-	private final ResultStorer storer;
+	// private final ResultStorer storer;
 
 	/** The walker. */
 	private Walker walker;
@@ -58,7 +58,7 @@ public class WalkWayFinder {
 	public WalkWayFinder(HeuristicDistance heuristicDistance, ResultStorer storer,
 			IWalkWayFinderFindParamsAuditor paramAuditor) {
 		this.heuristicDistance = heuristicDistance;
-		this.storer = storer;
+		// this.storer = storer;
 		this.paramAuditor = paramAuditor;
 		tableWhite = HashBasedTable.create();
 	}
@@ -88,7 +88,7 @@ public class WalkWayFinder {
 			return null;
 		}
 		log.info("\n========================================= NEW TASK ============================================");
-		log.info("Try find way on area: \n{}",
+		log.debug("Try find way on area: \n{}",
 				cycleToString(task.getArea(), task.getStart(), task.getFinish(), task.getShape()));
 		log.info("Start point: {}", task.getStart());
 		log.info("Finish point: {}", task.getFinish());
@@ -137,7 +137,7 @@ public class WalkWayFinder {
 			} while (currentNode.getComeDirect() != Step.S);
 			Collections.reverse(path);
 			log.debug("Path: {}", path.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList()));
-			storer.storeResult(task, path);
+			// storer.storeResult(task, path);
 			return path;
 		}
 
