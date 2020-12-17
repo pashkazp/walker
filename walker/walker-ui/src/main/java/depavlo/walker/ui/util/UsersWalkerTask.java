@@ -1,5 +1,8 @@
 package depavlo.walker.ui.util;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
@@ -7,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import depavlo.walker.ui.payload.CellData;
 import depavlo.walker.util.Point;
 import depavlo.walker.util.StepSetType;
 import lombok.EqualsAndHashCode;
@@ -27,6 +31,7 @@ public class UsersWalkerTask {
 	private StepSetType stepSet;
 	private int[][] area;
 	private int shape;
+	private final List<CellData> walkerPath = new LinkedList<>();
 
 	@PostConstruct
 	public void init() {
@@ -47,6 +52,7 @@ public class UsersWalkerTask {
 	public void clear() {
 		start = null;
 		finish = null;
+		walkerPath.clear();
 		init();
 	}
 

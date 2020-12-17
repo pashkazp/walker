@@ -1,5 +1,7 @@
 package depavlo.walker.util;
 
+import java.util.Objects;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -87,6 +89,23 @@ public class Point {
 	 */
 	public void setRowCol(Point point) {
 		setRowCol(point.getRow(), point.getCol());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Point)) {
+			return false;
+		}
+		Point other = (Point) obj;
+		return col == other.col && row == other.row;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(col, row);
 	}
 
 }
