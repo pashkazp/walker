@@ -16,9 +16,9 @@ public enum CellFiller {
 	WS("ws", 110, 0b110),
 	WSF("wsf", 111, 0b111);
 
-	public final static String[] textByMask = { " ", "f", "s", "sf", "w", "wf", "ws", "wsf" };
-	public final static int[] veightByMask = { 0, 1, 10, 11, 100, 101, 110, 111 };
-	public final static CellFiller[] cellFilterByMask = { SP, F, S, SF, W, WF, WS,
+	public final static String[] TEXT_BY_MASK = { " ", "f", "s", "sf", "w", "wf", "ws", "wsf" };
+	public final static int[] VEIGHT_BY_MASK = { 0, 1, 10, 11, 100, 101, 110, 111 };
+	public final static CellFiller[] CELL_FILTER_BY_MASK = { SP, F, S, SF, W, WF, WS,
 			WSF };
 	public final static int[] maskByVeight = {
 			0b000, 0b001, 0b000, 0b000, 0b000, 0b000, 0b000, 0b000, 0b000, 0b000,

@@ -37,7 +37,7 @@ public class CalcFiller {
 			mask |= (finish != null && finish.getRow() == row && finish.getCol() == col) ? 0b001 : 0b000;
 			break;
 		}
-		return CellFiller.textByMask[mask];
+		return CellFiller.TEXT_BY_MASK[mask];
 	}
 
 }
