@@ -68,9 +68,22 @@ function clearall(response) {
 }
 
 function setCell(payload) {
-//	console.log('setcell: ' + payload);
+	//	console.log('setcell: ' + payload);
 	var message = JSON.parse(payload.body);
 	$('.gamecell[data-number=' + message.cellNum + ']').attr('data-value', message.cellValue);
+}
+function fillPath(payload) {
+	var message = JSON.parse(payload.body);
+	if (message.command == 'clear') {
+		$.each(message.path, function(i, item) {
+			$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', " ");
+		});
+	}
+	if (message.command == 'set') {
+		$.each(message.path, function(i, item) {
+			$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', item.cellValue);
+		});
+	}
 }
 
 function connect() {
@@ -86,14 +99,12 @@ function connect() {
 			console.log('Connected: ' + frame);
 		});
 		stompClient.subscribe('/user/walker/commandsetcell', setCell);
+		stompClient.subscribe('/user/walker/commandfillpath', fillPath);
 	});
 }
 
-function sendMessage() {
-	//var from = document.getElementById('from').value;
-	//var text = document.getElementById('text').value;
-	stompClient.send("/app/walker/task", {},
-		JSON.stringify({ 'from': 'from' }));
+function sendExec() {
+	stompClient.send("/app/walker/task/execute", {}, "exec");
 }
 
 function sendShape(shapeName) {

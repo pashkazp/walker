@@ -73,6 +73,11 @@
 			<artifactId>walker-util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>depavlo</groupId>
+			<artifactId>walker-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<!-- exclude junit 4 -->
 		<dependency>

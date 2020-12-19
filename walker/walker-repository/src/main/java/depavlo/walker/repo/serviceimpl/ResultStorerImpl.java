@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package depavlo.walker.repo.serviceimpl;
 
 import java.util.Arrays;
@@ -12,6 +15,7 @@ import depavlo.walker.service.Node;
 import depavlo.walker.service.ResultStorer;
 import depavlo.walker.service.model.WalkWayFinderTask;
 import depavlo.walker.util.Point;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,28 +27,31 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
+@NoArgsConstructor
 public class ResultStorerImpl implements ResultStorer {
 
 	/**
-	 * Store task and result.
+	 * Store result.
 	 *
-	 * @param area    the work area
-	 * @param start   the start Point
-	 * @param finish  the finish Point
-	 * @param shape   the Walker shape of Walker
-	 * @param stepSet the Walker step set
-	 * @param path    the founded path
+	 * @param task the users WalkWayFinder task
+	 * @param path the list of Node
 	 */
 	@Override
-	public void storeResult(WalkWayFinderTask task, List<Node> path) {
+	public void storeResult(final WalkWayFinderTask task, final List<Node> path) {
 		if (task == null) {
 			throw new IllegalArgumentException("Task must be not null.");
 		}
 		log.info("\n========================================== RESULT =============================================");
 		log.info("Start Point: {}", task.getStart());
 		log.info("Finish Point: {}", task.getFinish());
-		log.info("Walker Shape height:width is: {}:{}", task.getShape().getHeight(), task.getShape().getWidth());
-		log.info("Walker Step Set: {}", task.getStepSet().name());
+		log.info("Walker Shape height:width is: {}:{}", task.getShape().getHeight(), task.getShape().getWidth()); // NOPMD
+																													// by
+																													// Pavlo
+																													// Degtyaryev
+																													// on
+																													// 17.12.20,
+																													// 14:58
+		log.info("Walker Step Set: {}", task.getStepSet().name()); // NOPMD by Pavlo Degtyaryev on 17.12.20, 15:00
 		if (path == null) {
 			log.info("Found way length: nothing");
 		} else {
@@ -57,28 +64,24 @@ public class ResultStorerImpl implements ResultStorer {
 	}
 
 	/**
-	 * Make Picture of result Area
+	 * Convert walker area to single string.
 	 *
-	 * @param area    the working area
-	 * @param start   the start Point
-	 * @param finish  the finish Point
-	 * @param shape   the walker shape
-	 * @param stepSet the walker step set
-	 * @param path    the founded path
+	 * @param task the users WalkWayFinder task
+	 * @param path the Node list
 	 * @return the string
 	 */
-	private String convertAreaToString(WalkWayFinderTask task, List<Node> path) {
-		StringBuilder builder = new StringBuilder();
+	private String convertAreaToString(final WalkWayFinderTask task, final List<Node> path) {
+		final StringBuilder builder = new StringBuilder();
 		builder.append("   ");
-		IArea area = task.getArea();
-		Point start = task.getStart();
-		Point finish = task.getFinish();
-		IShape shape = task.getShape();
+		final IArea area = task.getArea();
+		final Point start = task.getStart();
+		final Point finish = task.getFinish();
+		final IShape shape = task.getShape();
 		for (int i = 0; i < area.getColsCount(); i++) {
 			builder.append(StringUtils.rightPad(Integer.toString(i), 2, ' '));
 		}
-		builder.append("\n   ");
-		builder.append(StringUtils.repeat('+', area.getColsCount() * 2)).append("\n");
+		builder.append("\n   ")
+				.append(StringUtils.repeat('+', area.getColsCount() * 2)).append("\n"); // NOPMD by Pavlo Degtyaryev on 17.12.20, 15:03
 		for (int row = 0; row < area.getRowsCount(); row++) {
 			builder.append(StringUtils.leftPad(Integer.toString(row), 2, ' ')).append("[ ");
 			for (int col = 0; col < area.getColsCount(); col++) {
@@ -90,21 +93,21 @@ public class ResultStorerImpl implements ResultStorer {
 					builder.append("F ");
 					continue;
 				}
-				int rowv = row;
-				int colv = col;
+				final int rowv = row;
+				final int colv = col;
 
-				if (path.stream().filter((n) -> {
+				if (path.stream().filter((n) -> { // NOPMD by Pavlo Degtyaryev on 17.12.20, 14:57
 					return shape.coversPoint(n.getPoint(), rowv, colv);
 				}).count() > 0) {
 					builder.append("* ");
 				} else {
-					int cell = area.getFieldCost(row, col);
+					final int cell = area.getFieldCost(row, col);
 					builder.append(cell == Integer.MAX_VALUE ? "W " : ". ");
 				}
 			}
 			builder.deleteCharAt(builder.length() - 1).append("]\n");
 		}
-		builder.append("   ").append(StringUtils.repeat('+', area.getColsCount() * 2));
+		builder.append("   ").append(StringUtils.repeat('+', area.getColsCount() * 2)); // NOPMD by Pavlo Degtyaryev on 17.12.20, 15:03
 		return builder.toString();
 	}
 

@@ -149,7 +149,7 @@ public class Walker {
 	 *
 	 * @param step the step
 	 */
-	private void Move(Step step) {
+	private void move(Step step) {
 		switch (step) {
 		case U:
 			position.setRow(position.getRow() - 1);
@@ -189,7 +189,7 @@ public class Walker {
 	 */
 	public boolean moveIfCan(IArea area, Step step) {
 		if (canBeMove(area, step)) {
-			Move(step);
+			move(step);
 			return true;
 		}
 		return false;

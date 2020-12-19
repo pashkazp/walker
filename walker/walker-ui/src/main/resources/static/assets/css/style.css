@@ -1318,7 +1318,9 @@ rotate(
 [class*=gamecell][data-value='p']{
   background-color: blue;
 }
-
+[class*=gamecell][data-value='pe']{
+  background-color: Cyan;
+}
 .grid-gamecontainer {
 	display: grid;
 	grid-template-columns: repeat(100, 1fr);
