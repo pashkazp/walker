@@ -8,6 +8,7 @@ var cellType = "w";
 var divStart;
 var divFinish;
 
+var cellSet = $(".gamecell").toArray();
 function setCellType(ch) {
 	cellType = ch;
 };
@@ -60,28 +61,33 @@ $(function() {
 
 function clearall(response) {
 	//console.log(frame)
-	console.log(response)
-	var gameCells = document.getElementsByClassName("gamecell")
-	Array.from(gameCells).forEach((gameCell) => {
-		gameCell.setAttribute("data-value", " ")
-	})
+	console.log(response);
+	cellSet.forEach((gameCell) => {
+		gameCell.setAttribute("data-value", " ");
+	});
+	$("input[name=optradiocell][value=wall]").prop('checked', true);
+	$("input[name=optradioshape][value=square1]").prop('checked', true);
+	$("input[name=optradiostep][value=ortho]").prop('checked', true);
 }
 
 function setCell(payload) {
 	//	console.log('setcell: ' + payload);
 	var message = JSON.parse(payload.body);
-	$('.gamecell[data-number=' + message.cellNum + ']').attr('data-value', message.cellValue);
+	cellSet[message.cellNum].setAttribute("data-value", message.cellValue);
 }
+
 function fillPath(payload) {
 	var message = JSON.parse(payload.body);
 	if (message.command == 'clear') {
 		$.each(message.path, function(i, item) {
-			$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', " ");
+			cellSet[item.cellNum].setAttribute('data-value', " ");
+			//$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', " ");
 		});
 	}
 	if (message.command == 'set') {
 		$.each(message.path, function(i, item) {
-			$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', item.cellValue);
+			cellSet[item.cellNum].setAttribute('data-value', item.cellValue);
+			//$('.gamecell[data-number=' + item.cellNum + ']').attr('data-value', item.cellValue);
 		});
 	}
 }
