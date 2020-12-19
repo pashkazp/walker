@@ -76,7 +76,7 @@ public class WalkWayFinder {
 	public List<Node> findWay(WalkWayFinderTask task) {
 		AuditResponse response = paramAuditor.validate(task, null);
 		if (response.isInvalid()) {
-			log.warn("The path search task settings are incorrect: {}", task);
+			// log.warn("The path search task settings are incorrect: {}", task);
 			WalkWayFinderTaskParamAuditException ex = new WalkWayFinderTaskParamAuditException(response);
 			ex.setErrMsg("Param is wrong.");
 			ex.setErrMsgExt("The path search task settings are incorrect.");

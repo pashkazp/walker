@@ -4,9 +4,9 @@ logging:
   level:
     org:
       springframework:
-        web: DEBUG
+        web: INFO
     depavlo:
-      walker: DEBUG
+      walker: INFO
     depavlo.walker.service: INFO
   pattern:
     console: '%highlight(%-5level) %green(%C{1.}):%L - %msg%n%throwable'

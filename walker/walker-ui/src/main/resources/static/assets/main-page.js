@@ -68,6 +68,7 @@ function clearall(response) {
 	$("input[name=optradiocell][value=wall]").prop('checked', true);
 	$("input[name=optradioshape][value=square1]").prop('checked', true);
 	$("input[name=optradiostep][value=ortho]").prop('checked', true);
+	cellType = "w";
 }
 
 function setCell(payload) {
