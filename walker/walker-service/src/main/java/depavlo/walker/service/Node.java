@@ -11,6 +11,8 @@ import lombok.ToString;
 
 /**
  * The Class Node that represent the tree of the solutions.
+ * 
+ * @author Pavlo Degtyaryev
  */
 @Getter
 @Setter

@@ -6,10 +6,20 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+/**
+ * The Class WebSocketConfig for configure of the web socket configuration.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+	/**
+	 * Configure message broker URIs
+	 *
+	 * @param registry the MessageBrokerRegistry
+	 */
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		registry.enableSimpleBroker("/walker");
@@ -17,6 +27,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		registry.setUserDestinationPrefix("/user");
 	}
 
+	/**
+	 * Register stomp StompEndpointRegistry.
+	 *
+	 * @param registry the registry
+	 */
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry

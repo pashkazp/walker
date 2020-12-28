@@ -24,23 +24,51 @@ import depavlo.walker.ui.util.CalcFiller;
 import depavlo.walker.ui.util.NodeMapper;
 import depavlo.walker.ui.util.UsersWalkerTask;
 import depavlo.walker.util.Point;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.StepType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Instantiates a new walker controller.
+ *
+ * @param userTask              the user task
+ * @param simpMessagingTemplate the simp messaging template
+ * @param calcFiller            the calc filler
+ * @param nodeMapper            the node mapper
+ * @param finder                the finder
+ * @param areaMapper            the area mapper
+ */
 @RequiredArgsConstructor
 @Controller
+
+/** The Constant log. */
 @Slf4j
 public class WalkerController {
 
+	/** The user task. */
 	private final UsersWalkerTask userTask;
+
+	/** The simp messaging template. */
 	private final SimpMessagingTemplate simpMessagingTemplate;
 
+	/** The calc filler. */
 	private final CalcFiller calcFiller;
+
+	/** The node mapper. */
 	private final NodeMapper nodeMapper;
+
+	/** The finder. */
 	private final WalkWayFinder finder;
+
+	/** The area mapper. */
 	private final AreaMapper areaMapper;
 
+	/**
+	 * Sets the shape.
+	 *
+	 * @param message the new shape
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task/setshape")
 	public void setShape(@Payload ShapeMessage message) throws Exception {
 		log.debug(message.toString());
@@ -59,24 +87,37 @@ public class WalkerController {
 		}
 	}
 
+	/**
+	 * Sets the step type.
+	 *
+	 * @param message the new step type
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task/setsteptype")
 	public void setStepType(@Payload String message) throws Exception {
 		log.debug(message);
 		switch (message) {
 		case "ortho":
-			userTask.setStepSet(StepSetType.ORTHOGONAL);
+			userTask.setStepType(StepType.ORTHOGONAL);
 			break;
 		case "octa":
-			userTask.setStepSet(StepSetType.OCTAGON);
+			userTask.setStepType(StepType.OCTAGON);
 			break;
 		case "chess":
-			userTask.setStepSet(StepSetType.CHESS);
+			userTask.setStepType(StepType.CHESS);
 			break;
 		default:
 			break;
 		}
 	}
 
+	/**
+	 * Clear task.
+	 *
+	 * @param message   the message
+	 * @param sessionId the session id
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task/clearall")
 	public void clearTask(@Payload String message, @Header("simpSessionId") String sessionId) throws Exception {
 		log.debug(message);
@@ -90,6 +131,13 @@ public class WalkerController {
 		}
 	}
 
+	/**
+	 * Clear task.
+	 *
+	 * @param cellData  the cell data
+	 * @param sessionId the session id
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task/setcell")
 	public void clearTask(@Payload CellData cellData, @Header("simpSessionId") String sessionId) throws Exception {
 		log.debug(cellData.toString());
@@ -161,6 +209,13 @@ public class WalkerController {
 		simpMessagingTemplate.convertAndSend(path, cellData);
 	}
 
+	/**
+	 * Send.
+	 *
+	 * @param message the message
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task")
 	@SendToUser(destinations = { "/walker/solutions" }, broadcast = false)
 	public String send(Message message) throws Exception {
@@ -170,6 +225,14 @@ public class WalkerController {
 		return message.toString();
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param message   the message
+	 * @param sessionId the session id
+	 * @return the path command
+	 * @throws Exception the exception
+	 */
 	@MessageMapping("/walker/task/execute")
 	@SendToUser(destinations = { "/walker/commandfillpath" }, broadcast = false)
 	public PathCommand execute(Message<String> message, @Header("simpSessionId") String sessionId) throws Exception {
@@ -187,7 +250,8 @@ public class WalkerController {
 		}
 
 		WalkWayFinderTask task = new WalkWayFinderTask(areaMapper.taskToArea(userTask.getArea()), userTask.getStart(),
-				userTask.getFinish(), new SquareShape(userTask.getShape(), userTask.getShape()), userTask.getStepSet());
+				userTask.getFinish(), new SquareShape(userTask.getShape(), userTask.getShape()),
+				userTask.getStepType());
 		List<Node> nodePath = null;
 		try {
 			nodePath = finder.findWay(task);

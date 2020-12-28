@@ -12,12 +12,17 @@ import org.springframework.stereotype.Component;
 
 import depavlo.walker.ui.payload.CellData;
 import depavlo.walker.util.Point;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.StepType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The UsersWalkerTask class stores the current task state in the user session.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Component
 @Scope(scopeName = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Getter
@@ -26,22 +31,39 @@ import lombok.ToString;
 @ToString
 public class UsersWalkerTask {
 
+	/** The start Point. */
 	private Point start;
+
+	/** The finish Point */
 	private Point finish;
-	private StepSetType stepSet;
+
+	/** The step type. */
+	private StepType stepType;
+
+	/** The game area. */
 	private int[][] area;
+
+	/** The walker shape size. */
 	private int shape;
+
+	/** The counted walker path. */
 	private final List<CellData> walkerPath = new LinkedList<>();
 
+	/**
+	 * Set initial state.
+	 */
 	@PostConstruct
 	public void init() {
-		stepSet = StepSetType.ORTHOGONAL;
+		stepType = StepType.ORTHOGONAL;
 		shape = 1;
 		area = new int[100][100];
 	}
 
 	// ...
 
+	/**
+	 * Destroy.
+	 */
 	@PreDestroy
 	public void destroy() {
 		start = null;
@@ -49,6 +71,9 @@ public class UsersWalkerTask {
 		area = null;
 	}
 
+	/**
+	 * Clear state.
+	 */
 	public void clear() {
 		start = null;
 		finish = null;
@@ -56,6 +81,12 @@ public class UsersWalkerTask {
 		init();
 	}
 
+	/**
+	 * Sets the start position.
+	 *
+	 * @param row the row
+	 * @param col the col
+	 */
 	public void setStart(int row, int col) {
 		if (start == null) {
 			start = new Point();
@@ -63,6 +94,12 @@ public class UsersWalkerTask {
 		start.setRowCol(row, col);
 	}
 
+	/**
+	 * Sets the finish position.
+	 *
+	 * @param row the row
+	 * @param col the col
+	 */
 	public void setFinish(int row, int col) {
 		if (finish == null) {
 			finish = new Point();

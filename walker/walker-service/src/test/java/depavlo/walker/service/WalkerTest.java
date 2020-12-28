@@ -11,7 +11,7 @@ import depavlo.walker.service.impl.Area;
 import depavlo.walker.service.impl.SquareShape;
 import depavlo.walker.util.Point;
 import depavlo.walker.util.Step;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.StepType;
 
 class WalkerTest {
 
@@ -20,9 +20,9 @@ class WalkerTest {
 	void test1() {
 		Area area = new Area(10, 10);
 		SquareShape shape = new SquareShape(2, 2);
-		Walker walkerOr = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
-		Walker walkerOc = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
-		Walker walkerCh = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		Walker walkerOr = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
+		Walker walkerOc = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
+		Walker walkerCh = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 
 		assertTrue(walkerOr.canBeMove(area, Step.U));
 		assertFalse(walkerOr.canBeMove(area, Step.UL));
@@ -57,9 +57,9 @@ class WalkerTest {
 	@DisplayName("Test simple moving")
 	void test2() {
 		SquareShape shape = new SquareShape(2, 2);
-		Walker walkerOr = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
-		Walker walkerOc = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
-		Walker walkerCh = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		Walker walkerOr = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
+		Walker walkerOc = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
+		Walker walkerCh = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 
 		Area area = new Area(10, 10);
 		area.setFieldCost(4, 5, Integer.MAX_VALUE);
@@ -104,123 +104,123 @@ class WalkerTest {
 		SquareShape shape = new SquareShape(2, 2);
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 5, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.U));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 6, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.U));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.L));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.L));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 5, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.D));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 6, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.D));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(4, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(5, 7, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.R));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(6, 7, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.R));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 5, 5);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// ****************
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 0, 0);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 0, 0);
 
 		assertFalse(walker.moveIfCan(area, Step.U));
 
@@ -228,13 +228,13 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.D));
 
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 0, 0);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 0, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// ****************
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 8, 0);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 8, 0);
 
 		assertFalse(walker.moveIfCan(area, Step.D));
 
@@ -242,14 +242,14 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.R));
 
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 8, 0);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 8, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// ****************
 		area = new Area(10, 10);
 
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 0, 8);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 0, 8);
 
 		assertFalse(walker.moveIfCan(area, Step.R));
 
@@ -257,7 +257,7 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.D));
 
-		walker = new Walker(shape, StepSetType.ORTHOGONAL.getSteps(), 0, 8);
+		walker = new Walker(shape, StepType.ORTHOGONAL.getSteps(), 0, 8);
 
 		assertTrue(walker.moveIfCan(area, Step.L));
 
@@ -271,7 +271,7 @@ class WalkerTest {
 		SquareShape shape = new SquareShape(2, 2);
 
 		// ===============
-		walker = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 
 		area = new Area(10, 10);
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
@@ -313,7 +313,7 @@ class WalkerTest {
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.UL));
 
-		walker = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
@@ -326,7 +326,7 @@ class WalkerTest {
 		area.setFieldCost(7, 6, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.DL));
 
-		walker = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(7, 5, Integer.MAX_VALUE);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
@@ -339,7 +339,7 @@ class WalkerTest {
 		area.setFieldCost(5, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.DR));
 
-		walker = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
@@ -352,7 +352,7 @@ class WalkerTest {
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.UR));
 
-		walker = new Walker(shape, StepSetType.CHESS.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.CHESS.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(6, 7, Integer.MAX_VALUE);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
@@ -375,123 +375,123 @@ class WalkerTest {
 		SquareShape shape = new SquareShape(2, 2);
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 5, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.U));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 6, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.U));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.U));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.L));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.L));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.L));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 5, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.D));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 6, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.D));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.D));
 
 		// ===============
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(4, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(5, 7, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.R));
 
 		// -----------
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(6, 7, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.R));
 
 		// +++++++++++
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.R));
 
 		// ****************
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 0);
 
 		assertFalse(walker.moveIfCan(area, Step.U));
 
@@ -505,17 +505,17 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.D));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.R));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.DR));
 
 		// ****************
 		area = new Area(10, 10);
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 8, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 8, 0);
 
 		assertFalse(walker.moveIfCan(area, Step.D));
 
@@ -529,18 +529,18 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.R));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 8, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 8, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.U));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 8, 0);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 8, 0);
 
 		assertTrue(walker.moveIfCan(area, Step.UR));
 
 		// ****************
 		area = new Area(10, 10);
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 8);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 8);
 
 		assertFalse(walker.moveIfCan(area, Step.R));
 
@@ -554,11 +554,11 @@ class WalkerTest {
 
 		assertTrue(walker.moveIfCan(area, Step.D));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 8);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 8);
 
 		assertTrue(walker.moveIfCan(area, Step.L));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 0, 8);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 0, 8);
 
 		assertTrue(walker.moveIfCan(area, Step.DL));
 
@@ -572,7 +572,7 @@ class WalkerTest {
 		SquareShape shape = new SquareShape(2, 2);
 
 		// ===============
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 
 		area = new Area(10, 10);
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
@@ -614,7 +614,7 @@ class WalkerTest {
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		assertFalse(walker.moveIfCan(area, Step.UL));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
@@ -627,7 +627,7 @@ class WalkerTest {
 		area.setFieldCost(7, 6, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.DL));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(7, 5, Integer.MAX_VALUE);
 		area.setFieldCost(7, 4, Integer.MAX_VALUE);
@@ -640,7 +640,7 @@ class WalkerTest {
 		area.setFieldCost(5, 7, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.DR));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(5, 4, Integer.MAX_VALUE);
 		area.setFieldCost(4, 4, Integer.MAX_VALUE);
@@ -653,7 +653,7 @@ class WalkerTest {
 		area.setFieldCost(6, 4, Integer.MAX_VALUE);
 		assertTrue(walker.moveIfCan(area, Step.UR));
 
-		walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 		area = new Area(10, 10);
 		area.setFieldCost(6, 7, Integer.MAX_VALUE);
 		area.setFieldCost(7, 7, Integer.MAX_VALUE);
@@ -671,7 +671,7 @@ class WalkerTest {
 	@DisplayName("Test getNeighborPoint")
 	void test7() {
 		SquareShape shape = new SquareShape(2, 2);
-		Walker walker = new Walker(shape, StepSetType.OCTAGON.getSteps(), 5, 5);
+		Walker walker = new Walker(shape, StepType.OCTAGON.getSteps(), 5, 5);
 
 		assertEquals(new Point(6, 5), walker.getNeighborPoint(Step.D));
 		assertEquals(new Point(6, 6), walker.getNeighborPoint(Step.DR));

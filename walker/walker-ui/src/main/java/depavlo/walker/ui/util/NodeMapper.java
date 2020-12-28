@@ -11,9 +11,23 @@ import depavlo.walker.service.Node;
 import depavlo.walker.ui.payload.CellData;
 import depavlo.walker.util.Point;
 
+/**
+ * The Class NodeMapper that create walker path from list of Nodes.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Component
 public class NodeMapper {
 
+	/**
+	 * Node list to walker path.
+	 *
+	 * @param source     the list of Nodes
+	 * @param shape      the size of walker shape
+	 * @param start      the start position
+	 * @param finish     the finish position
+	 * @param walkerPath the created walker path
+	 */
 	public void nodeListToWalkerPath(List<Node> source, int shape, Point start, Point finish,
 			List<CellData> walkerPath) {
 		if (source == null) {

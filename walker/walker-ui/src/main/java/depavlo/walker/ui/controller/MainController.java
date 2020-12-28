@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * The MainController class handles the Home Page call
+ * 
+ * @author Pavlo Degtyaryev
  */
 @Controller
 @RequestMapping("/")
@@ -23,7 +25,7 @@ public class MainController {
 	}
 
 	/**
-	 * Return the Home Page template
+	 * Return the About Page template
 	 *
 	 * @return the string
 	 */
@@ -33,7 +35,7 @@ public class MainController {
 	}
 
 	/**
-	 * Return the Home Page template
+	 * Return the FAQ Page template
 	 *
 	 * @return the string
 	 */

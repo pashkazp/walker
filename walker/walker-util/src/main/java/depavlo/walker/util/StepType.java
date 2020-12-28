@@ -10,7 +10,7 @@ import lombok.Getter;
  * 
  * @author Pavlo Degtyaryev
  */
-public enum StepSetType {
+public enum StepType {
 
 	/** The orthogonal step set. */
 	ORTHOGONAL(Step.ORTHOGONAL),
@@ -34,7 +34,7 @@ public enum StepSetType {
 	 *
 	 * @param steps the steps
 	 */
-	private StepSetType(Set<Step> steps) {
+	private StepType(Set<Step> steps) {
 		this.steps = steps;
 	}
 

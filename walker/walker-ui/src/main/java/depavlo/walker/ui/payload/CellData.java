@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The Class CellData that represent single item of Browser fields.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Getter
 @Setter
 @NoArgsConstructor

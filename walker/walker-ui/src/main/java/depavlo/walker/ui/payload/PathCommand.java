@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * The Class PathCommand that represent command for Browser to set or clear list
+ * of fields.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Getter
 @Setter
 @NoArgsConstructor

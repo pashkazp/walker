@@ -4,7 +4,11 @@ logging:
   level:
     depavlo:
       walker: DEBUG
-    depavlo.walker.service: INFO
+    '[depavlo.walker.service]': debug 
+#    depavlo.walker.service: INFO
   pattern:
     console: '%highlight(%-5level) %green(%C{1.}):%L - %msg%n%throwable'
+spring:
+  main:
+    lazy-initialization: true
 

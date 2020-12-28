@@ -21,7 +21,7 @@ import depavlo.walker.service.impl.Area;
 import depavlo.walker.service.impl.SquareShape;
 import depavlo.walker.service.model.WalkWayFinderTask;
 import depavlo.walker.util.Point;
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.StepType;
 import depavlo.walker.web.WalkerApplication;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 0);
 		Point finish = new Point(2, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -60,7 +60,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 2);
 		Point finish = new Point(4, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -75,7 +75,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 0);
 		Point finish = new Point(4, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -90,7 +90,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 4);
 		Point finish = new Point(4, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -105,7 +105,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 4);
 		Point finish = new Point(2, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -120,7 +120,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 2);
 		Point finish = new Point(0, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -135,7 +135,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 4);
 		Point finish = new Point(0, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -150,7 +150,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 0);
 		Point finish = new Point(0, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -165,7 +165,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 0);
 		Point finish = new Point(2, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -180,7 +180,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 2);
 		Point finish = new Point(4, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -195,7 +195,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 0);
 		Point finish = new Point(4, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -210,7 +210,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 4);
 		Point finish = new Point(4, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -225,7 +225,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 4);
 		Point finish = new Point(2, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -240,7 +240,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 2);
 		Point finish = new Point(0, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -255,7 +255,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 4);
 		Point finish = new Point(0, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -270,7 +270,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 0);
 		Point finish = new Point(0, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -285,7 +285,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 0);
 		Point finish = new Point(2, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -300,7 +300,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 2);
 		Point finish = new Point(4, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -315,7 +315,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 0);
 		Point finish = new Point(4, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -330,7 +330,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(0, 4);
 		Point finish = new Point(4, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -345,7 +345,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(2, 4);
 		Point finish = new Point(2, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -360,7 +360,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 2);
 		Point finish = new Point(0, 2);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -375,7 +375,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 4);
 		Point finish = new Point(0, 0);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -390,7 +390,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(4, 0);
 		Point finish = new Point(0, 4);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -413,7 +413,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(0, 18);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -467,7 +467,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(1, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -521,7 +521,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(2, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.OCTAGON));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.OCTAGON));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -575,7 +575,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(1, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -629,7 +629,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(2, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.ORTHOGONAL));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.ORTHOGONAL));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",
@@ -683,7 +683,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(1, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		assertNull(steps);
 	}
 
@@ -733,7 +733,7 @@ class SimpleWalkWayFinderTest {
 		IShape shape = new SquareShape(1, 1);
 		Point start = new Point(19, 0);
 		Point finish = new Point(2, 15);
-		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepSetType.CHESS));
+		List<Node> steps = finder.findWay(new WalkWayFinderTask(area, start, finish, shape, StepType.CHESS));
 		List<Point> stepsP = steps.stream().map((n) -> new Point(n.getPoint())).collect(Collectors.toList());
 		assertAll(
 				"The beginning of the list must coincide with the Start point and the end of the list must coincide with the Finish point.",

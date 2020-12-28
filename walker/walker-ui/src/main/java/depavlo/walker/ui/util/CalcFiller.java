@@ -4,11 +4,29 @@ import org.springframework.stereotype.Component;
 
 import depavlo.walker.util.Point;
 
+/**
+ * The CalcFiller class, which calculates the field mask for a given point at a
+ * given start and end point in a given area.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Component
 public class CalcFiller {
 
+	/** The mask. */
 	private int mask;
 
+	/**
+	 * Gets the fill.
+	 *
+	 * @param area    the area
+	 * @param row     the row
+	 * @param col     the col
+	 * @param start   the start
+	 * @param finish  the finish
+	 * @param command the command
+	 * @return the fill
+	 */
 	public String getFill(int[][] area, int row, int col, Point start, Point finish, String command) {
 		switch (command) {
 		case "w":// mask to set wall

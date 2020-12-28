@@ -3,7 +3,6 @@ package depavlo.walker.service;
 import depavlo.walker.util.Point;
 import depavlo.walker.util.Step;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IShape.
  * 

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import depavlo.walker.util.StepSetType;
+import depavlo.walker.util.StepType;
 
 class UsersWalkerTaskTest {
 	UsersWalkerTask task;
@@ -25,7 +25,7 @@ class UsersWalkerTaskTest {
 		// UsersWalkerTask task = new UsersWalkerTask();
 
 		assertEquals(1, task.getShape(), "Expected shape size 1");
-		assertEquals(StepSetType.ORTHOGONAL, task.getStepSet(), "Expected step type ORTHOGONAL");
+		assertEquals(StepType.ORTHOGONAL, task.getStepType(), "Expected step type ORTHOGONAL");
 		assertNotNull(task.getArea(), "Expected initialized area");
 		assertEquals(100, task.getArea().length, "expected 100 rows of area");
 		assertEquals(100, task.getArea()[0].length, "expected 100 cols of area");

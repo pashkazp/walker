@@ -11,11 +11,24 @@ import depavlo.walker.util.audit.AuditResponse;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * The Class WalkWayFinderFindParamsAuditorImpl that represent auditor of users
+ * task parameters.
+ * 
+ * @author Pavlo Degtyaryev
+ */
 @Component
 @ToString
 @EqualsAndHashCode
 public class WalkWayFinderFindParamsAuditorImpl implements IWalkWayFinderFindParamsAuditor {
 
+	/**
+	 * Validate task parameters.
+	 *
+	 * @param task   the task WalkWayFinderTask
+	 * @param result the result AuditResponse
+	 * @return the audit response AuditResponse
+	 */
 	@Override
 	public AuditResponse validate(WalkWayFinderTask task, AuditResponse result) {
 		if (result == null) {
