@@ -2,11 +2,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>depavlo</groupId>
-	<artifactId>walker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
+	
+	<developers>
+		<developer>
+			<name>Pavlo Degtyaryev</name>
+			<email>pashka@ukr.net</email>
+		</developer>
+	</developers>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -15,12 +17,13 @@
 		<relativePath />
 	</parent>
 
-	<developers>
-		<developer>
-			<name>Pavlo Degtyaryev</name>
-			<email>pashka@ukr.net</email>
-		</developer>
-	</developers>
+	<groupId>depavlo.walker</groupId>
+	<artifactId>depavlo.walker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+    <name>Parent - Pom Aggregator</name>
+    <description>This pom is a maven aggregator that contains all application modules. Also, include all
+    common dependencies needed by more than one module.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,16 +41,62 @@
 		<surefire.failure.ignore>false</surefire.failure.ignore>
 	</properties>
 
+	<modules>
+		<module>depavlo.walker.repository</module>
+		<module>depavlo.walker.service</module>
+		<module>depavlo.walker.ui</module>
+		<module>depavlo.walker.util</module>
+		<module>depavlo.walker.web</module>
+	</modules>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- exclude junit 4 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- junit 5 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>walker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -65,19 +114,20 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<skip>true</skip>
-					</configuration>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<source>${java.source.version}</source>
 						<target>${java.target.version}</target>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+							<!-- other annotation processors -->
+						</annotationProcessorPaths>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -88,12 +138,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<modules>
-		<module>walker-repository</module>
-		<module>walker-service</module>
-		<module>walker-ui</module>
-		<module>walker-web</module>
-		<module>walker-util</module>
-	</modules>
 </project>
