@@ -42,10 +42,10 @@
 	</properties>
 
 	<modules>
+		<module>depavlo.walker.util</module>
 		<module>depavlo.walker.repository</module>
 		<module>depavlo.walker.service</module>
 		<module>depavlo.walker.ui</module>
-		<module>depavlo.walker.util</module>
 		<module>depavlo.walker.web</module>
 	</modules>
 
